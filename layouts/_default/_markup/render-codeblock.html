@@ -1,0 +1,8 @@
+<pre >
+    {{- if eq .Type "md" -}}
+      {{- .Inner | safeHTML -}}  <!-- Renders raw HTML without escaping -->
+    {{- else -}}
+      {{- .Inner | htmlEscape | safeHTML -}}  <!-- Escapes HTML for other types -->
+    {{- end -}}
+</pre>
+{{ .Page.Store.Set "hasCode" true }}

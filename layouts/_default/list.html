@@ -1,0 +1,11 @@
+{{ define "main" }}
+<article class="[ x--700 grid layout--spacing section--padding-top ]">
+  <header>
+    <h1>{{ .Title }}</h1>
+    {{ partial "breadcrumbs.html" . }}
+  </header>
+  <div class="[ content ]">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

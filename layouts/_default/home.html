@@ -1,0 +1,41 @@
+{{- define "main" -}}
+{{- .Store.Set "hasTwic" true -}}
+{{- .Store.Set "hasObscure" true -}}
+<!-- Hero - START -->
+<header class="[ hero hero--home ][ full-width bg ]">
+  <h1 class="[ hidden ]">Bahamas Customs Exam</h1>
+  <div class="[ wrapper ][ content-grid middle py--5 ]">
+    <div class="[ grid md:col--2 ]">
+      <div class="[ hero__content ] ">
+        <h2 class="[ font--1 ]">{{ .Params.heading }}</h2>
+        <p class="[ ch--48 ]">{{ .Params.subheading | safeHTML }}</p>
+        <a class="[ btn btn--lg btn--white ]" href="/contact-us" data-prefetch>Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Hero - END  -->
+
+<section class="[ full-width content-grid ]">
+  <div class="[ wrapper ][ grid md:col--2 gap--2 ]">
+    <div class="[ grid gap--1 section--padding ]">
+      <div>
+        <h2>Why XPS?</h2>
+        {{ .Summary | safeHTML }}
+      </div>
+      <div>
+        <a class="[ btn btn--lg btn--red ]" href="/company" data-prefetch>Learn More
+          <span class="[ hidden ]">About XPS Logistics</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="[ grid section--spacing ]">
+  <h2>Insights</h2>
+  {{ $posts := (site.GetPage "section" "insights").RegularPages | first 3 }}
+  {{ partial "posts.html" (dict "Pages" $posts "Site" .Site) }}
+</section>
+
+{{- end -}}

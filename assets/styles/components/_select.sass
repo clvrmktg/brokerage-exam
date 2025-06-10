@@ -1,0 +1,97 @@
+@use '../abstracts' as *
+
+// Native select visible by default
+select
+  font-size: var(--step-0)
+  cursor: pointer
+  position: relative
+  background: url(../icons/dropdown_arrow.svg) no-repeat color('white')
+  background-position: right
+  background-size: 2rem
+
+// Enhanced UI starts hidden
+.dropdown
+  display: none
+  text-align: left
+  user-select: none
+  background: white
+  cursor: pointer
+  // line-height: 30px
+  display: inline-block
+  position: relative
+
+  // Scrollbar styling
+  \::-webkit-scrollbar
+    width: rem(4)
+
+  \::-webkit-scrollbar-thumb
+    background-color: #999
+  
+  &:focus-visible
+    outline: none
+
+// If JS runs, hide native select and show enhanced dropdown
+.dropdown-enhanced
+  select
+    display: none
+
+  .dropdown
+    display: inline-block
+
+// Dropdown value box
+.dropdown_value
+  display: inline-block
+
+// Dropdown arrow
+.dropdown_arrow
+  width: 2rem
+  color: color('black')
+  position: absolute
+  top: 50%
+  right: 0
+  transform: translateY(-50%)
+  +transition(all)
+
+  > svg
+    width: inherit
+    height: auto
+
+// Dropdown panel wrapper
+.dropdown_panel
+  display: none
+  position: absolute
+  top: 2.8em
+  width: 100%
+  max-height: rem(400)
+  overflow-y: auto
+  background: color('white')
+  border: 0.1em solid #aaa
+  z-index: 1000
+  // border-radius: 0 0 0.25rem 0.25rem
+
+// Container for items
+.dropdown_items
+  background-color: color('white')
+  position: relative
+  pointer-events: all
+  z-index: 9999
+  width: 100%
+  max-height: rem(280)
+  overflow-y: auto
+  +transition(all)
+
+// Individual item
+.dropdown_item
+  padding-block: 0.5em
+  padding-inline: 0.5em
+
+  +hover
+    color: color('white')
+    background: color('xps-red')
+
+  &[aria-selected='true']
+    color: color('white')
+    background: color('black')
+
+    +hover
+      background: color('xps-red-darker')

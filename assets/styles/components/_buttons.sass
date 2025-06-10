@@ -1,0 +1,74 @@
+@use 'sass:math'
+@use '../abstracts' as *
+
+$border: 0.15em
+$block: 0.5em
+$inline: 2em
+%btn
+  display: block
+  font-weight: 700
+  text-align: center
+  // border-radius: 100vh
+  border: $border solid
+  // margin-top: 0.5em
+  // margin-bottom: 0.5em
+  white-space: nowrap
+  cursor: pointer
+  +transition((color, fill, background-color, border, border-color))
+
+  +breakpoint(desktop)
+    display: inline-flex
+
+.btn, button.btn
+  @extend %btn
+
+  &--sm
+    padding: (math.div($block, 2) - $border) (math.div($inline, 2) - $border)
+
+  &--lg
+    padding: ($block - $border) ($inline - $border)
+
+
+  &--white
+    color: color('white')
+    // background-color: color('white')
+    border-color: color('white')
+
+    +hover
+      color: color('white')
+      background-color: transparent
+
+    &--ghost
+      color: color('white')
+      border: $border solid color('white')
+      +transition((color, background-color))
+
+      +hover
+        color: color('black')
+        background-color: color('white')
+
+
+  &--red
+    color: color('white')
+    background-color: color('xps-red')
+    border-color: color('xps-red')
+    +transition((background-color, border-color))
+
+    +hover
+      background-color: color('xps-red-darker')
+      border-color: color('xps-red-darker')
+
+    &--ghost
+      color: color('xps-red')
+      border: $border solid color('xps-red')
+      +transition((color, background-color))
+
+      +hover
+        color: color('white')
+        background-color: color('xps-red-darker')
+        border-color: color('xps-red-darker')
+
+      &.current
+        color: color('white')
+        background-color: color('xps-red-darker')
+        border-color: color('xps-red-darker')

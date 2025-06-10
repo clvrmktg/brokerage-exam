@@ -1,0 +1,137 @@
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  {{- $share := .Params.cover -}}
+  {{- $page := . -}}
+  {{- $categoryLabels := dict "Trade-Industry" "Trade & Industry" "Logistics-Supply Chain" "Logistics & Supply Chain" "Inside-XPS" "Newsroom" -}}
+  {{- $baseTitle := .Site.Title -}}
+  {{- $title := "" -}}
+  
+  {{- if $page.IsHome -}}
+    {{- $title = printf "%s | 3PL | Third-Party Logistics | Nassau, Bahamas" $baseTitle -}}
+  {{- else if eq $page.Kind "term" -}}
+    {{- $label := index $categoryLabels $page.Title | default $page.Title -}}
+    {{- $title = printf "%s | %s" $label $baseTitle -}}
+  {{- else if eq $page.Kind "section" -}}
+    {{- $title = printf "%s | %s" ($page.Title | title) $baseTitle -}}
+  {{- else -}}
+    {{- $title = printf "%s | %s" $page.Title $baseTitle -}}
+  {{- end -}}
+  
+  {{- if or (and (eq $page.Kind "section") (eq $page.Section "insights")) (eq $page.Kind "term") -}}
+    {{- with $page.Paginator -}}
+      {{- if gt .PageNumber 1 -}}
+        {{- $parts := split $title " | " -}}
+        {{- $parts = slice (index $parts 0) (printf "Page %d" .PageNumber) (index $parts 1) -}}
+        {{- $title = delimit $parts " | " -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{ $title }}</title>
+  {{- if eq .Kind "term" -}}
+    {{- $key := "" -}}
+    {{- with .File }}
+      {{- $key = .BaseFileName -}}
+    {{- else }}
+      {{- $key = .Title -}}
+    {{- end }}
+    {{- with index site.Data.categories $key }}
+      <meta name="description" content="{{ .description }}">
+    {{- else }}
+      <meta name="description" content="{{ $.Description }}">
+    {{- end }}
+
+  {{- else if eq .Kind "taxonomy" -}}
+    {{- with index site.Data.categories "default" }}
+      <meta name="description" content="{{ .description }}">
+    {{- else }}
+      <meta name="description" content="Explore insights by category from XPS Logistics.">
+    {{- end }}
+
+  {{- else -}}
+    <meta name="description" content="{{ .Description }}">
+  {{- end }}
+
+  {{- if or (and (eq $page.Kind "section") (eq $page.Section "insights")) (eq $page.Kind "term") -}}
+    {{- with $page.Paginator -}}
+      <link rel="canonical" href="{{ if eq .PageNumber 1 }}{{ $page.Permalink }}{{ else }}{{ $page.Permalink }}page/{{ .PageNumber }}/{{ end }}">
+      {{- if .HasPrev }}
+        <link rel="prev" href="{{ .Prev.URL | absURL }}">
+      {{- end }}
+      {{- if .HasNext }}
+        <link rel="next" href="{{ .Next.URL | absURL }}">
+      {{- end }}
+    {{- else }}
+      <link rel="canonical" href="{{ $page.Permalink }}">
+    {{- end }}
+  {{- else }}
+    <link rel="canonical" href="{{ $page.Permalink }}">
+  {{- end }}
+  
+  {{- if eq .Page.Kind "404" -}}
+  <meta name="robots" content="noindex">
+  <meta name="googlebot" content="noindex">
+  {{- end -}}
+  <noscript>
+    <style>.script { display: none; visibility: hidden }</style>
+  </noscript>
+  {{- if or (.Scratch.Get "hasTwic") .Params.hasTwic }}
+  <link rel="preconnect" href="https://{{ .Site.Params.twic }}.twic.pics/?v1">
+  <link rel="preload" href="https://{{ .Site.Params.twic }}.twic.pics/?v1" as="script">
+  {{- end }}
+  {{- with resources.Get "styles/style.sass" -}}
+    {{- $opts := dict
+      "enableSourceMap" (not hugo.IsProduction)
+      "outputStyle" (cond hugo.IsProduction "compressed" "expanded")
+      "targetPath" "styles/style.css"
+      "transpiler" "dartsass"
+    -}}
+    {{- $hash := hash.XxHash now -}}
+    {{- with . | toCSS $opts -}}
+      {{- if hugo.IsProduction -}}
+        {{- with . | fingerprint "sha256" -}}
+  <link rel="preload" href="{{ .RelPermalink }}" as="style" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+        {{- end -}}
+      {{- else -}}
+  <link rel="preload" href="{{ .RelPermalink }}?v={{ $hash }}" as="style">
+  <link rel="stylesheet" href="{{ .RelPermalink }}?v={{ $hash }}">
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  <noscript>
+    <style>.script { display: none; visibility: hidden }</style>
+  </noscript>
+  {{- if or (.Scratch.Get "hasTwic") .Params.hasTwic }}
+  <script src="https://{{- .Site.Params.twic -}}.twic.pics/?v1" async defer></script>
+  {{- end }}
+  <!-- Default Icon - Use SVG for highest quality display - Use `media` attribute for light or dark mode (i.e. media="(prefers-color-scheme: dark)") - All browsers -->
+  <link rel="icon" type="image/svg" href="/xps-favicon.svg">
+  <!-- Mask Icon - 512 x 512 - PNG - Use `color` attribute with SVG (i.e. color="#000000") - Safari --> 
+  <link rel="mask-icon" href="/mask-icon.png">
+  <!-- Apple Touch Icon - 512 x 512 - PNG - iOS MacOS -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Manifest - 192 x 192 | 512 x 512 - PNG - Android Chrome | PWA -->
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0d1117">
+  {{- $iso := "2006-01-02T15:04:05Z07:00" -}}
+  <meta property="fb:app_id" content="384650276688740">
+  <meta property="og:url" content="{{ .Permalink  }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ $title }}">
+  {{- $image := $share.image | default .Site.Params.share -}}
+  {{- $alt := $share.alt | default "XPS Logistics logo" -}}
+  <meta property="og:description" content="{{- .Description -}}">
+  <meta property="og:image" content="{{- $image | absURL -}}">
+  <meta property="og:image:alt" content="{{ $alt  }}">
+  <meta property="fb:app_id" content="{{ $.Site.Params.app_id }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@jsphpndr">
+  <meta name="twitter:creator" content="@jsphpndr">
+  <meta name="twitter:title" content="{{ $title }}">
+  <meta name="twitter:description" content="{{- .Description -}}">
+  <meta name="twitter:image" content="{{- $image | absURL -}}">
+  <meta name="author" content="Joseph Pinder">
+  <meta name="publish_date" property="og:publish_date" content="{{- .Date.Format "2006-01-02T15:04:05Z0700" -}}">
+  <meta name="facebook-domain-verification" content="zq21trdszbl5aqzihtrzw3rngnpof0">
+</head>

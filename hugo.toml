@@ -1,0 +1,77 @@
+baseURL = 'https://brokerageexam.com/'
+languageCode = 'en-us'
+title = 'XPS Logistics'
+
+[sass]
+  use_dart_sass = true
+
+upload_dir = "assets/uploads"
+public_path = "/uploads"
+# disableKinds = [ "taxonomy", "term" ]
+
+[taxonomies]
+  category = "categories"
+  # tag = "tags"
+
+[pagination]
+  pagerSize = 9
+
+[ params ]
+  version = "1738220434631"
+  twic = "xpslogistics"
+  share = "/uploads/xps-share-fallback.jpg"
+  logo = "/uploads/joseph-pinder-logo.png"
+  # Facebook App ID
+  app_id = "223848628924279"
+  error = true
+
+  [params.social]
+    facebook = "jsphpndr"
+    instagram = "jsphpndr"
+    linkedin = "jsphpndr"
+    github = "jsphpndr"
+    x = "jsphpndr"
+
+
+[[menu.main]]
+  identifier = "knowledge-base"
+  name = "Knowlege Base"
+  url = "/knowledge-base/"
+  weight = 1
+
+[[menu.main]]
+  identifier = "glossary"
+  name = "Glossary"
+  url = "/glossary/"
+  weight = 2
+
+[[menu.main]]
+  identifier = "forms"
+  name = "Forms"
+  url = "/forms/"
+  weight = 3
+
+# [[menu.main]]
+#   identifier = "contact"
+#   name = "Contact Us"
+#   url = "/contact-us/"
+#   weight = 5
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      wrapStandAloneImageWithinParagraph = false
+      [markup.goldmark.parser.attribute]
+        block = true
+
+    # Links
+    [markup.goldmark.renderHooks]
+      [markup.goldmark.renderHooks.link]
+        enableDefault = true        
+
+enableGitInfo = true
+
+[sitemap]
+  filename = "sitemap"  # Remove .xml
+  changefreq = "monthly"
+  priority = 0.5

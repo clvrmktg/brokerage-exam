@@ -1,0 +1,32 @@
+@use 'sass:math'
+@use '../abstracts' as *
+
+\:root
+
+  +hsl('white', #fff)
+  +hsl('black', #191919)
+
+  +hsl('text-grey', rgb(145 152 161))
+  +hsl('neutral-grey-dark', #a0a0a0)       // For muted text, less prominent dividers
+  +hsl('neutral-grey', #d0d0d0)            // Updated base border color (more modern than #d9)
+  +hsl('neutral-grey-light', #e5e6e8)      // Surface contrast (replaces #f2f3f5)
+  +hsl('neutral-grey-lighter', #f2f3f5)    // Use for input backgrounds or subtle sections
+  +hsl('neutral-grey-lightest', #fafafa)   // Use sparingly for softest contrast
+
+  +hsl('xps-red', #C00C00)
+  +hsl('xps-red-darker', #a00000)
+  +hsl('xps-red', #C00C00, 1)
+
+  --navbar-height: #{rem(65)}
+  --monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
+  
+  --sans-serif: system-ui, sans-serif
+
+  $headings: (h1: 4, h2: 3, h3: 2, h4: 1, h5: 0, h6: -1)
+
+  @each $tag, $step in $headings
+    $min-size: type-scale($step, $min-font-size, $min-scale)
+    $max-size: type-scale($step, $max-font-size, $max-scale)
+
+    // @debug "Step: #{$step}, Min Size: #{$min-size}, Max Size: #{$max-size}"
+    +clamp('--step-#{$step}', $min-size, $max-size)

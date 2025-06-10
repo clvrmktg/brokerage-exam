@@ -1,0 +1,42 @@
+@use 'abstracts' as *
+
+.loop-wrap
+  grid-template-rows: 1fr max-content
+
+.posts--header
+
+  +breakpoint('tablet')
+    grid-template-columns: 2fr max-content
+
+.post
+
+
+  &__img
+    background-color: color('black')
+
+    > picture
+      overflow: hidden
+
+      > img
+        scale: 1
+        +transition(scale)
+
+  h2
+    line-height: 1.3
+    text-decoration: underline
+    text-decoration-color: transparent
+    +transition(text-decoration-color)
+
+  &__link
+    color: color('black')
+
+    +hover
+      .post
+
+        &__img > picture > img
+          scale: 1.1
+
+      h2
+        text-decoration-color: color('black')
+      
+

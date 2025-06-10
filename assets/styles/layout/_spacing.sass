@@ -1,0 +1,61 @@
+@use '../abstracts' as *
+
+$min: $min-font-size * 3
+$max: $max-font-size * 5
+
+.layout--spacing, .section--spacing
+  +clamp('row-gap', $min, $max)
+
+.section--padding
+  +clamp('padding-top', $min, $max)
+  +clamp('padding-bottom', $min, $max)
+
+.section--padding-top
+  +clamp('padding-top', $min, $max)
+
++padding(0.25)
+
++padding(5, 'top')
+
++padding(0, 'bottom')
++padding(2, 'bottom')
++padding(5, 'bottom')
+
++padding(0.25, 'y')
++padding(0.5, 'y')
++padding(1, 'y')
++padding(2, 'y')
++padding(5, 'y')
+
+
+
++col(2, 'md')
++col(3, 'md')
++col(2, 'lg')
++col(3, 'lg')
++col(4, 'lg')
+
+
++col-gap(0.5)
++col-gap(1)
++col-gap(1.5)
++col-gap(2)
++col-gap(4)
+
++row-gap(0.25)
++row-gap(0.5)
++row-gap(1)
++row-gap(2)
++row-gap(3)
+
++gap(1)
++gap(2)
++gap(4)
+
++order(1)
++order(2)
++order(3)
+
++order(1, md)
++order(2, md)
++order(3, md)
