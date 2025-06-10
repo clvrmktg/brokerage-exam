@@ -1,7 +1,7 @@
 +++
 date = '2025-06-09T21:24:53-04:00'
-title = "Adjustment of Price Paid or Payable"
-term = "Adjustment of Price Paid or Payable"
+title = "Adjustment of Price Actually Paid or Payable (PAPP)"
+term = "Adjustment of Price Actually Paid or Payable (PAPP)"
 definition = """
 Adjustments are additions to the transaction value required under Article 8 of the Agreement to ensure a complete and accurate customs valuation. These include:
 

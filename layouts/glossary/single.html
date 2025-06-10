@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <div class="[ grid layout--spacing section--padding-top ]">
+  <div class="[ grid layout--spacing section--padding ]">
     <div class="[ posts--header ][ grid col-gap--4 row-gap--2 ]">
 
       <header class="[ grid row-gap--1 ]">
@@ -31,11 +31,17 @@
         </ul>
       </div>
     </div>
+    <div>
+      <dl>
+        <dt class="[ font--3 font--700 ]">{{ .Params.term | markdownify }}</dt>
+        <dd>
+          {{ .Params.definition | markdownify }}
+          
+          {{ .Content }}
+        </dd>
+      </dl>
 
-    <dl>
-      <dt class="[ font--3 font--700 ]">{{ .Params.term | markdownify }}</dt>
-      <dd>{{ .Params.definition | markdownify }}</dd>
-    </dl>
+    </div>
   </div>
   
 {{ end }}
